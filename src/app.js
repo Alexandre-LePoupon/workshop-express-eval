@@ -1,3 +1,6 @@
-const app = '... please declare your Express web server here';
+const express = require('express');
+const app = express();
+
+app.use(express.static('public'));
 
 module.exports = app;
