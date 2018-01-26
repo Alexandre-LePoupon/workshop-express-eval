@@ -14,7 +14,24 @@ app.get('/bingo', function(req, res) {
     if (err) {
         return console.log(err)
     }
-    res.send(contents.split('\n').join(', ').slice(0, -2))
+
+    let mynumbers = req.query.mynumbers;
+    let nums = contents.split('\n').join(', ').slice(0, -2);
+
+    if(mynumbers != undefined) {
+      var myNumbArray = JSON.parse("[" + mynumbers + "]");
+      var numbArray = JSON.parse("[" + nums + "]");
+
+      if(myNumbArray.sort().join(',') === numbArray.sort().join(',')){
+        res.send('Bingo');
+      }
+      else {
+        res.send('The bingo game is already started, sorry your numbers doesn t match with known numbers ' + nums + ' ; so you can not say Bingo');
+      }
+      
+    } else {
+      res.send('The bingo game is already started and known numbers are ' + nums)
+    }
   });
 
 });
